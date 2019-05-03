@@ -12,7 +12,9 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSString *welcomeMessage= [NSString stringWithFormat:@"\n Thank you for shopping at Acme.com Your total today is $%lu Please select your payment method: 1: Paypal, 2: Stripe, 3: Amazon", [ScreenController randomNumberBetween:100 andMax:100]];
+        
+        NSInteger randomValue = [ScreenController randomNumberBetween:100 andMax:100];
+        NSString *welcomeMessage= [NSString stringWithFormat:@"\n Thank you for shopping at Acme.com Your total today is $%lu Please select your payment method: 1: Paypal, 2: Stripe, 3: Amazon", randomValue ];
         
         NSString *option =  [ScreenController stringFromPromptWithMessage:welcomeMessage];
         int intOption = option.intValue;
@@ -20,6 +22,9 @@ int main(int argc, const char * argv[]) {
             NSLog(@"Wrong value.");
         }else{
             NSLog(@"Option: %i", intOption);
+            PaymentGateway *payGate = [PaymentGateway new];
+            [payGate processPaymentAmount: randomValue];
+            
         }
         
         
