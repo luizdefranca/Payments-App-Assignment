@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "ScreenController.h"
 #import "PaymentGateway.h"
+#import "PaypalPaymentService.h"
+#import "AmazonPaymentService.h"
+#import "StripPaymentService.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -18,14 +21,35 @@ int main(int argc, const char * argv[]) {
         
         NSString *option =  [ScreenController stringFromPromptWithMessage:welcomeMessage];
         int intOption = option.intValue;
-        if(intOption == 0) {
-            NSLog(@"Wrong value.");
-        }else{
+      
             NSLog(@"Option: %i", intOption);
             PaymentGateway *payGate = [PaymentGateway new];
             [payGate processPaymentAmount: randomValue];
+            switch (intOption) {
+                case 1:{
+                    PaypalPaymentService *paypal = [PaypalPaymentService new];
+                    payGate.delegate = paypal;
+                }
+                    
+                    break;
+                case 2:{
+                    StripPaymentService *strip = [StripPaymentService new];
+                    payGate.delegate = strip;
+                }
+                    
+                    break;
+                case 3:{
+                    AmazonPaymentService *amazon = [AmazonPaymentService new];
+                    payGate.delegate = amazon;
+                }
+                    
+                    break;
+                default:
+                    NSLog(@"Wrong option.\n");
+                    break;
+            }
             
-        }
+        
         
         
     }

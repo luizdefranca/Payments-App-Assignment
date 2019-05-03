@@ -10,7 +10,7 @@
 
 @implementation PaymentGateway
 -(void) processPaymentAmount: (NSInteger) amount{
-    
+    [self.delegate processPayment: amount];
 }
 
 @end
