@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface PaymentGateway : NSObject
-@property (nonatomic, weak) id<PaymentGatewayDelegate> delegate;
+@property (nonatomic, strong) id<PaymentGatewayDelegate> delegate;
 -(void) processPaymentAmount: (NSInteger) amount;
 @end
 
